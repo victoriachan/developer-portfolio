@@ -1,4 +1,3 @@
-/victoriachan/static_compiled
 
 __pycache__
 *.pyc
@@ -15,6 +14,11 @@ node_modules/
 .vscode
 coverage
 .python-version
+.env
+local.py
+/backups
+.vscode
+*.sqlite3
 
 # Distribution / packaging
 .Python
