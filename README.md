@@ -17,15 +17,24 @@ resources.
 
 #### Installation
 
-Run the following commands:
+##### To build the container:
 
 ```bash
 git clone https://github.com/victoriachan/developer-portfolio.git --config core.autocrlf=input
 cd developer-portfolio
+docker-compose build
+```
+
+##### To start the container and gunicorn, run:
+
+```bash
 docker-compose up -d
 ```
 
-To run bash on the container, run
+The local site will now be accessible at [http://localhost:8000/](http://localhost:8000/) and the Wagtail admin
+interface at [http://localhost:8000/admin/](http://localhost:8000/admin/).
+
+##### To run bash on the container:
 
 ```bash
 docker-compose exec web bash
@@ -39,13 +48,15 @@ You can then run the usual Wagtail commands:
 ./manage.py createsuperuser
 ```
 
-The local site will now be accessible at [http://localhost:8000/](http://localhost:8000/) and the Wagtail admin
-interface at [http://localhost:8000/admin/](http://localhost:8000/admin/).
+##### To stop the container:
 
+```bash
+docker-compose stop
+```
 
 **Important:** This `docker-compose.yml` is configured for local testing only, and is _not_ intended for production use.
 
-### Debugging
+##### Debugging
 
 To tail the logs from the Docker containers in realtime, run:
 
@@ -60,4 +71,26 @@ To update pip packages, edit `requirements.in`, and then run:
 ```
 pip-compile --allow-unsafe --generate-hashes
 pip install -r requirements.txt
+```
+
+### Frontend
+
+Frontend css and js src files are in `frontend/` directory, and are compiled into `victoriachan/static/`.
+
+#### To install frontend tooling:
+
+```sh
+npm install
+```
+
+#### To create a production build:
+
+```sh
+npm run build-prod
+```
+
+#### To create a development build:
+
+```sh
+npm run build-dev
 ```

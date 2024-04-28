@@ -5,7 +5,7 @@ FROM node:20 as frontend
 COPY . .
 
 RUN npm install
-RUN npm run prod
+RUN npm run build-prod
 
 
 # Use an official Python runtime based on Debian 12 "bookworm" as a parent image.

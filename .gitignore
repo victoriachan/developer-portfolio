@@ -6,6 +6,8 @@ __pycache__
 /venv/
 /.venv/
 /static/
+/victoriachan/static/css
+/victoriachan/static/js
 /media/
 /tmp/
 node_modules/
@@ -45,6 +47,10 @@ htmlcov/
 coverage.xml
 *.cover
 .env
+
+.cache/
+coverage/
+*.log
 
 /database_dumps
 dpl-rendered-patterns
