@@ -24,8 +24,8 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
-    # "home",
-    # "search",
+    "victoriachan.base",
+    "victoriachan.pages",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -58,6 +58,7 @@ MIDDLEWARE = [
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 ROOT_URLCONF = "victoriachan.urls"
 
 TEMPLATES = [
@@ -174,3 +175,12 @@ WAGTAILSEARCH_BACKENDS = {
 WAGTAILADMIN_BASE_URL = "https://victoriachan.uk"
 
 ALLOWED_HOSTS = ["victoriachan.uk", "www.victoriachan.uk"]
+
+# Use custom wagtail models in case we ever need to override the defaults.
+# It is much easier to start with a custom model from the beginning
+# than to change later.
+
+
+WAGTAILIMAGES_IMAGE_MODEL = "base.CustomImage"
+
+WAGTAILDOCS_DOCUMENT_MODEL = "base.CustomDocument"
