@@ -75,7 +75,7 @@ pip install -r requirements.txt
 
 ### Frontend
 
-Frontend css and js src files are in `frontend/` directory, and are compiled into `victoriachan/static/`.
+Frontend css and js src files are in `frontend_src/` directory, and are compiled into `victoriachan/static/`.
 
 #### To install frontend tooling:
 

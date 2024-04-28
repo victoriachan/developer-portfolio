@@ -4,7 +4,7 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const projectRoot = 'victoriachan';
 
 const config = {
-  entry: ["./frontend/js/main.js", "./frontend/css/styles.css"],
+  entry: ["./frontend_src/js/main.js", "./frontend_src/css/styles.css"],
   output: {
     path: path.resolve(`./${projectRoot}/static/`),
     filename: 'js/[name].js', // based on entry name, e.g. main.js
