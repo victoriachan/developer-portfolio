@@ -5,7 +5,7 @@ module.exports = {
      * HTML. Paths to Django template files that utilises Tailwind CSS classes.
      */
     "./frontend_src/**/*.{js}",
-    "./victoriachan/templates/**/*.html",
+    "./portfolio/templates/**/*.html",
   ],
   theme: {
     colors: {

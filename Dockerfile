@@ -23,7 +23,7 @@ EXPOSE 8000
 #    command.
 ENV PYTHONUNBUFFERED=1 \
     PORT=8000 \
-    DJANGO_SETTINGS_MODULE="victoriachan.settings.production"
+    DJANGO_SETTINGS_MODULE="portfolio.settings.production"
 
 # Install system packages required by Wagtail and Django.
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
@@ -57,7 +57,7 @@ RUN chown wagtail:wagtail /app
 COPY --chown=wagtail:wagtail . .
 
 # Move FE compiled assets into container
-COPY --from=frontend ./victoriachan/static ./victoriachan/static
+COPY --from=frontend ./portfolio/static ./portfolio/static
 
 # Use user "wagtail" to run the build commands below and the server itself.
 USER wagtail
@@ -74,4 +74,4 @@ RUN python manage.py collectstatic --noinput --clear
 #   PRACTICE. The database should be migrated manually or using the release
 #   phase facilities of your hosting platform. This is used only so the
 #   Wagtail instance can be started with a simple "docker run" command.
-CMD set -xe; python manage.py migrate --noinput; gunicorn victoriachan.wsgi:application
+CMD set -xe; python manage.py migrate --noinput; gunicorn portfolio.wsgi:application

@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-const projectRoot = 'victoriachan';
+const projectRoot = 'portfolio';
 
 const config = {
   entry: ["./frontend_src/js/main.js", "./frontend_src/css/styles.css"],

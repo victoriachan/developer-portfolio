@@ -5,9 +5,9 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      DJANGO_SETTINGS_MODULE: victoriachan.settings.dev
+      DJANGO_SETTINGS_MODULE: portfolio.settings.dev
     command: python manage.py runserver 0.0.0.0:8000
-    image: victoriachan
+    image: portfolio
     ports:
       - "8000:8000"
     volumes:

@@ -6,8 +6,8 @@ __pycache__
 /venv/
 /.venv/
 /static/
-/victoriachan/static/css
-/victoriachan/static/js
+/portfolio/static/css
+/portfolio/static/js
 /media/
 /tmp/
 node_modules/
