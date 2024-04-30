@@ -75,7 +75,7 @@ pip install -r requirements.txt
 
 ### Frontend
 
-Frontend css and js src files are in `portfolio/static_src/` directory, and are compiled into `portfolio/static_compiled/`.
+Frontend css and js src files are in `static_src/` directory, and are compiled into `static_compiled/`.
 
 #### To install frontend tooling:
 

@@ -4,8 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      # This corresponds to the build stage in the Dockerfile.
-      # Change the target to 'production' to test production build stage.
+      # Change target to 'production' if you want to use npm in the host machine instead of in the container.
       target: dev
     environment:
       DJANGO_SETTINGS_MODULE: portfolio.settings.dev
@@ -22,12 +21,13 @@ services:
       # See https://docs.docker.com/storage/bind-mounts/#mount-into-a-non-empty-directory-on-the-container
       - ./portfolio:/app/portfolio
       - ./db.sqlite3:/app/db.sqlite3
+      - ./static_src:/app/static_src
+
+      # Uncomment the following line if you use npm on host machine instead of in the container.
+      # - ./static_compiled:/app/static_compiled
 
       # Docs config
       - ./mkdocs.yml:/app/mkdocs.yml
-
-      # Backend config
-      - ./manage.py:/app/manage.py
 
       # Frontend config
       - ./package-lock.json:/app/package-lock.json

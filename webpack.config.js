@@ -4,15 +4,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
-const projectRoot = 'portfolio';
-
 module.exports = {
   entry: {
-    'main': `./${projectRoot}/static_src/js/main.js`,
-    'styles': `./${projectRoot}/static_src/css/styles.css`
+    'main': `./static_src/js/main.js`,
+    'styles': `./static_src/css/styles.css`
   },
   output: {
-    path: path.resolve(`./${projectRoot}/static_compiled/`),
+    path: path.resolve(`./static_compiled/`),
     // based on entry name, e.g. main.js
     filename: 'js/[name].js', // based on entry name, e.g. main.js
   },
@@ -22,8 +20,8 @@ module.exports = {
             {
                 // Copy images to be referenced directly by Django to the "images" subfolder in static files.
                 from: 'images',
-                context: path.resolve(`./${projectRoot}/static_src/`),
-                to: path.resolve(`./${projectRoot}/static_compiled/images`),
+                context: path.resolve(`./static_src/`),
+                to: path.resolve(`./static_compiled/images`),
             },
         ],
     }),

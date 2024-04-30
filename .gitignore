@@ -6,7 +6,7 @@ __pycache__
 /venv/
 /.venv/
 /static/
-/portfolio/static_compiled/
+/static_compiled/
 /media/
 /tmp/
 node_modules/

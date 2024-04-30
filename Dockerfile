@@ -1,5 +1,5 @@
 # Install and build front-end dependencies. 
-# Make node version matches nodesource version below.
+# Make node version matches version in .nvmrc.
 FROM node:20 as frontend
 
 COPY . .
@@ -12,8 +12,8 @@ RUN npm run build-prod
 FROM python:3.12-slim-bookworm as production
 
 # Add user that will be used in the container.
-# Use -m to create a home directory for the user, as we need it for nvm.
-RUN useradd -m wagtail
+# Use --create-home to create a home directory for the user, as we need it for nvm.
+RUN useradd --create-home wagtail
 
 # Port used by this container to serve HTTP.
 EXPOSE 8000
@@ -34,8 +34,6 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     libjpeg62-turbo-dev \
     zlib1g-dev \
     libwebp-dev \
-    && curl -sL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
     && apt-get clean
 
@@ -58,7 +56,7 @@ RUN chown wagtail:wagtail /app
 COPY --chown=wagtail:wagtail . .
 
 # Copy compiled FE output from the frontend build stage into the container
-COPY --from=frontend ./portfolio/static_compiled ./portfolio/static_compiled
+COPY --chown=wagtail --from=frontend ./static_compiled ./static_compiled
 
 # Use user "wagtail" to run the build commands below and the server itself.
 USER wagtail
@@ -72,14 +70,21 @@ RUN python manage.py collectstatic --noinput --clear
 # environment variable hence we don't specify a lot options below.
 CMD gunicorn portfolio.wsgi:application
 
-
-# The below only runs on local development and won't affect production
+# Local config for using npm in the container for local development.
+# To use, update target in docker-compose.yml to "dev"
 FROM production as dev
 
-# Install nvm and node/npm
-COPY --chown=wagtail .nvmrc ./
-RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash && \
-    bash --login -c "nvm install --no-progress && nvm alias default $(nvm run --silent --version)"
+# FE tooling so we can use npm in the container. 
+USER wagtail
+
+# Copy bash_aliases to the container for the wagtail user.
+# This fixes an issue with nvm in the dev container.
+COPY ./docker/bash_aliases.sh /home/wagtail/.bash_aliases
 
 # Copy the node_modules from the frontend build stage so we don't have to rebuild them.
 COPY --chown=wagtail --from=frontend ./node_modules ./node_modules
+
+# Install nvm and node/npm
+COPY --chown=wagtail .nvmrc ./
+RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash && \
+    bash --login -c "nvm install --no-progress && nvm alias default $(nvm run --silent --version)"
