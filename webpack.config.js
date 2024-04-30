@@ -1,58 +1,57 @@
-const webpack = require('webpack');
 const path = require('path');
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-const projectRoot = 'portfolio';
+const CopyPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
-const config = {
-  entry: ["./frontend_src/js/main.js", "./frontend_src/css/styles.css"],
+module.exports = {
+  entry: {
+    'main': `./static_src/js/main.js`,
+    'styles': `./static_src/css/styles.css`
+  },
   output: {
-    path: path.resolve(`./${projectRoot}/static/`),
+    path: path.resolve(`./static_compiled/`),
+    // based on entry name, e.g. main.js
     filename: 'js/[name].js', // based on entry name, e.g. main.js
   },
+  plugins: [
+    new CopyPlugin({
+        patterns: [
+            {
+                // Copy images to be referenced directly by Django to the "images" subfolder in static files.
+                from: 'images',
+                context: path.resolve(`./static_src/`),
+                to: path.resolve(`./static_compiled/images`),
+            },
+        ],
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css',
+    }),
+    //  Automatically remove all unused webpack assets on rebuild
+    new CleanWebpackPlugin(),
+  ],
   module: {
     rules: [
       {
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader'
-        ]
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1
-            }
-          },
-          'postcss-loader'
-        ]
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
       },
       {
-        test: /\.svg$/,
-        use: 'file-loader'
-      }
-    ]
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+      },
+    ],
   },
-  plugins: [
-    new LodashModuleReplacementPlugin
-  ],
   optimization: {
-    runtimeChunk: 'single',
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all'
-        }
-      }
-    }
-  }
+    minimizer: [
+      // For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
+      // `...`,
+      new CssMinimizerPlugin(),
+    ],
+  },
 };
-
-module.exports = config;

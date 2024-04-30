@@ -4,13 +4,34 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      # Change target to 'production' if you want to use npm in the host machine instead of in the container.
+      target: dev
     environment:
       DJANGO_SETTINGS_MODULE: portfolio.settings.dev
+      WAGTAILADMIN_BASE_URL: http://localhost:8000
+      SECRET_KEY: 'local-secret'
     command: python manage.py runserver 0.0.0.0:8000
     image: portfolio
     ports:
       - "8000:8000"
     volumes:
-      - .:/app
+      # Don't use an umbrella `.:/app` to mount the whole project directory. 
+      # When you bind-mount a directory into a non-empty directory on the container, the existing contents 
+      # will be obscured by the bind mount. 
+      # See https://docs.docker.com/storage/bind-mounts/#mount-into-a-non-empty-directory-on-the-container
+      - ./portfolio:/app/portfolio
+      - ./db.sqlite3:/app/db.sqlite3
+      - ./static_src:/app/static_src
+
+      # Uncomment the following line if you use npm on host machine instead of in the container.
+      # - ./static_compiled:/app/static_compiled
+
+      # Docs config
+      - ./mkdocs.yml:/app/mkdocs.yml
+
+      # Frontend config
+      - ./package-lock.json:/app/package-lock.json
+      - ./package.json:/app/package.json
+      - ./webpack.config.js:/app/webpack.config.js
     stdin_open: true
     tty: true
