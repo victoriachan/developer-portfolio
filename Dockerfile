@@ -56,13 +56,15 @@ RUN chown wagtail:wagtail /app
 # Copy the source code of the project into the container.
 COPY --chown=wagtail:wagtail . .
 
-# Move FE compiled assets into container
-COPY --from=frontend ./portfolio/static ./portfolio/static
+# Copy output from the frontend docker build stage into the container
+COPY --from=frontend ./portfolio/static_compiled ./portfolio/static_compiled
 
 # Use user "wagtail" to run the build commands below and the server itself.
 USER wagtail
 
-# Collect static files.
+# Collect static. This command will move static files from application
+# directories and "static_compiled" folder to the main static directory that
+# will be served by the WSGI server.
 RUN python manage.py collectstatic --noinput --clear
 
 # Runtime command that executes when "docker run" is called, it does the

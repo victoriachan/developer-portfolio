@@ -68,29 +68,29 @@ docker-compose logs -f
 
 To update pip packages, edit `requirements.in`, and then run:
 
-```
+```bash
 pip-compile --allow-unsafe --generate-hashes
 pip install -r requirements.txt
 ```
 
 ### Frontend
 
-Frontend css and js src files are in `frontend_src/` directory, and are compiled into `portfolio/static/`.
+Frontend css and js src files are in `portfolio/static_src/` directory, and are compiled into `portfolio/static_compiled/`.
 
 #### To install frontend tooling:
 
-```sh
+```bash
 npm install
 ```
 
 #### To create a production build:
 
-```sh
+```bash
 npm run build-prod
 ```
 
 #### To create a development build:
 
-```sh
+```bash
 npm run build-dev
 ```

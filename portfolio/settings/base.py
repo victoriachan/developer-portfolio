@@ -133,7 +133,10 @@ STATICFILES_FINDERS = [
 ]
 
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, "static"),
+    # "static_compiled" is a folder used by the front-end tooling
+    # to output compiled static assets.
+    # This may not exist yet, but will be automatically created when compiling.
+    os.path.join(PROJECT_DIR, "static_compiled"),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
