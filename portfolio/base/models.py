@@ -5,7 +5,7 @@ from wagtail.models import Page
 
 
 class CustomImage(AbstractImage):
-    pass
+    admin_form_fields = Image.admin_form_fields
 
 
 class CustomRendition(AbstractRendition):
@@ -18,7 +18,7 @@ class CustomRendition(AbstractRendition):
 
 
 class CustomDocument(AbstractDocument):
-    pass
+    admin_form_fields = Document.admin_form_fields
 
 
 class BasePage(Page):
