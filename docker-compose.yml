@@ -20,16 +20,18 @@ services:
       # will be obscured by the bind mount. 
       # See https://docs.docker.com/storage/bind-mounts/#mount-into-a-non-empty-directory-on-the-container
       - ./portfolio:/app/portfolio
-      - ./db.sqlite3:/app/db.sqlite3
       - ./static_src:/app/static_src
-
+      
       # Uncomment the following line if you use npm on host machine instead of in the container.
       # - ./static_compiled:/app/static_compiled
 
-      # Docs config
-      - ./mkdocs.yml:/app/mkdocs.yml
+      # Database and Media files:
+      # Mounting the db and '/media' directory makes it easier to backup and restore and 
+      # allows persistence when rebuilding the container.
+      - ./db.sqlite3:/app/db.sqlite3
+      - ./media:/app/media
 
-      # Frontend config
+      # Frontend config:
       - ./package-lock.json:/app/package-lock.json
       - ./package.json:/app/package.json
       - ./webpack.config.js:/app/webpack.config.js

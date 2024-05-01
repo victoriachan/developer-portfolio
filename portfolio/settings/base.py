@@ -86,6 +86,9 @@ WSGI_APPLICATION = "portfolio.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+#
+# Using SQLite in production
+# Watch https://pretalx.com/djangocon-europe-2023/talk/J98ZTN/ to be convinced!
 
 DATABASES = {
     "default": {

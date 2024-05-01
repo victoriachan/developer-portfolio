@@ -2,20 +2,16 @@
 
 This project has been created using the amazing [Wagtail CMS](https://github.com/wagtail/wagtail).
 
-This project is meant to be a minimalistic Wagtail site for showcasing a freelance developer's portfolio and details. 
-I'm hoping to keep the dependencies light so that this website can be cheaply (if not freely) hosted using minimal 
-resources.
+This project is meant to be a minimalistic Wagtail site for showcasing a freelance developer's portfolio and details. I'm hoping to keep the dependencies light so that this website can be cheaply (if not freely) hosted using minimal resources.
 
 ## Local Development
 
 ### Setup with locally using Docker
 
-#### Dependencies
+##### Dependencies
 
 - [Docker](https://docs.docker.com/engine/installation/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
-
-#### Installation
 
 ##### To build the container:
 
@@ -34,6 +30,7 @@ docker-compose up -d
 The local site will now be accessible at [http://localhost:8000/](http://localhost:8000/) and the Wagtail admin
 interface at [http://localhost:8000/admin/](http://localhost:8000/admin/).
 
+
 ##### To run bash on the container:
 
 ```bash
@@ -48,13 +45,18 @@ You can then run the usual Wagtail commands:
 ./manage.py createsuperuser
 ```
 
+##### Backup and restore DB and Media files
+
+This site uses SQLite database. To backup / restore the database, simply copy and replace the `db.sqlite3` file. On local builds, this file is mounted as a bind mount, and will persist between docker builds unless explicitly deleted.
+
+Similarly, the `media` (Wagtail Image and Document files) directory is mounted as a bind mount, and will persist between docker builds unless explicitly deleted. Likewise, it can be backed up and restored by simply copying and replacing the directory.
+
+
 ##### To stop the container:
 
 ```bash
 docker-compose stop
 ```
-
-**Important:** This `docker-compose.yml` is configured for local testing only, and is _not_ intended for production use.
 
 ##### Debugging
 
@@ -64,7 +66,7 @@ To tail the logs from the Docker containers in realtime, run:
 docker-compose logs -f
 ```
 
-### Add packages
+### Updating Backend dependencies
 
 To update pip packages, edit `requirements.in`, and then run:
 
@@ -75,22 +77,6 @@ pip install -r requirements.txt
 
 ### Frontend
 
-Frontend css and js src files are in `static_src/` directory, and are compiled into `static_compiled/`.
+Frontend css and js src files are in `static_src/` directory, and are compiled into `static_compiled/`. By default if not changing any frontend files, the CSS and JS should already be compiled on a fresh docker build.
 
-#### To install frontend tooling:
-
-```bash
-npm install
-```
-
-#### To create a production build:
-
-```bash
-npm run build-prod
-```
-
-#### To create a development build:
-
-```bash
-npm run build-dev
-```
+For working with frontend files, see documentation at `docs/frontend_tooling.md`.
