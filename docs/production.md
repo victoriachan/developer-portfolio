@@ -9,7 +9,6 @@
 
 ## Production hosting
 
-The hosting solution of choice for this site is a PaaS provider such as [Heroku](https://heroku.com/) and [Fly.io](https://fly.io/). Unless you already have a Eco dynos plan subscription with Heroku, Fly.io may be the more economical (free) option. 
+The hosting solution of choice for this site is a PaaS provider such as [Heroku](https://heroku.com/) and [Fly.io](https://fly.io/) for ease of use. 
 
 As the default setup here uses SQlite database, it would be cheaper for hosting since most providers charge extra for Postgres.
-
