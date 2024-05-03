@@ -20,6 +20,7 @@ local.py
 /backups
 .vscode
 *.sqlite3
+.fly-secrets
 
 # Distribution / packaging
 .Python

@@ -92,7 +92,7 @@ WSGI_APPLICATION = "portfolio.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "NAME": env.get("SQLITE_FILEPATH", os.path.join(BASE_DIR, "db.sqlite3")),
     }
 }
 
@@ -146,7 +146,11 @@ STATICFILES_DIRS = [
 STATIC_ROOT = env.get("STATIC_DIR", os.path.join(BASE_DIR, "static"))
 STATIC_URL = env.get("STATIC_URL", "/static/")
 
+# This is '/app/media' by default.
+# Our Fly.io config uses '/data' directory for the volume mount,
+# so MEDIA_DIR needs to be set as '/app/data/media'
 MEDIA_ROOT = env.get("MEDIA_DIR", os.path.join(BASE_DIR, "media"))
+
 MEDIA_URL = env.get("MEDIA_URL", "/media/")
 MEDIA_PREFIX = env.get("MEDIA_PREFIX", "")
 
