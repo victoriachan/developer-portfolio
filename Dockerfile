@@ -11,9 +11,12 @@ RUN npm run build-prod
 # Use an official Python runtime based on Debian 12 "bookworm" as a parent image.
 FROM python:3.12-slim-bookworm as production
 
+# Install dependencies in a virtualenv
+ENV VIRTUAL_ENV=/venv
+
 # Add user that will be used in the container.
 # Use --create-home to create a home directory for the user, as we need it for nvm.
-RUN useradd --create-home wagtail
+RUN useradd wagtail --create-home && mkdir /app $VIRTUAL_ENV && chown -R wagtail /app $VIRTUAL_ENV
 
 # Port used by this container to serve HTTP.
 EXPOSE 8000
@@ -22,7 +25,8 @@ EXPOSE 8000
 # 1. Force Python stdout and stderr streams to be unbuffered.
 # 2. Set PORT variable that is used by Gunicorn. This should match "EXPOSE"
 #    command.
-ENV PYTHONUNBUFFERED=1 \
+ENV PATH=$VIRTUAL_ENV/bin:$PATH \
+    PYTHONUNBUFFERED=1 \
     PORT=8000 \
     DJANGO_SETTINGS_MODULE="portfolio.settings.production"
 
@@ -37,13 +41,6 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
     && apt-get clean
 
-# Install the application server.
-RUN pip install "gunicorn==20.0.4"
-
-# Install the project requirements.
-COPY requirements.txt /
-RUN pip install -r /requirements.txt
-
 # Use /app folder as a directory where the source code is stored.
 WORKDIR /app
 
@@ -54,6 +51,12 @@ RUN chown wagtail:wagtail /app
 
 # Copy the source code of the project into the container.
 COPY --chown=wagtail:wagtail . .
+
+# Install the project requirements.
+RUN python -m venv $VIRTUAL_ENV
+RUN pip install --no-cache --upgrade pip \
+    && pip install -r requirements.txt \
+    && rm -rf $HOME/.cache
 
 # Copy compiled FE output from the frontend build stage into the container
 COPY --chown=wagtail --from=frontend ./static_compiled ./static_compiled

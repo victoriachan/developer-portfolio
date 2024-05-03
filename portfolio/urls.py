@@ -15,7 +15,7 @@ urlpatterns = [
     path("django-admin/", admin.site.urls),
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
-    path("test-sentry-error/", trigger_error), # For testing error handling
+    path("test-sentry-error/", trigger_error),  # For testing error handling
 ]
 
 

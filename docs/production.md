@@ -15,7 +15,18 @@ The hosting solution of choice for this site is a PaaS provider such as [Heroku]
 
 As the default setup here uses SQlite database, it would be cheaper for hosting since most providers charge extra for Postgres.
 
+### Fly.io
+
+Coming soon..
+
+References:
+
+- https://programmingmylife.com/2023-11-06-using-sqlite-for-a-django-application-on-flyio.html
+- https://community.fly.io/t/using-sqlite-from-persistent-volume-for-django-application/16206/5
+
 ### Heroku
+
+**IMPORTANT:** Sqlite database does not work on Heroku (see [why](https://devcenter.heroku.com/articles/sqlite3)). So the settings will need to be changed to use postgres, and this would mean extra hosting cost.
 
 Requires [Eco dynos plan](https://devcenter.heroku.com/articles/eco-dyno-hours) subscription or higher.
 
@@ -48,6 +59,13 @@ Visit the app at the URL shown in the deploy output. As a handy shortcut, you ca
 ```bash
 heroku open
 ```
+
+To get on production shell, 
+
+```bash
+heroku run bash
+```
+
 
 #### Recommended Heroku addons
 
