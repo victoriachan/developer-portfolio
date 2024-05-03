@@ -5,7 +5,7 @@
 
 app = 'vc-portfolio'
 primary_region = 'lhr'
-console_command = '/code/manage.py shell'
+# console_command = '/code/manage.py shell'
 
 [build]
   build-target = "production"
@@ -43,5 +43,7 @@ console_command = '/code/manage.py shell'
   cpu_kind = 'shared'
   cpus = 1
 
-[deploy]
-  release_command = "/venv/bin/python manage.py migrate --noinput"
+# Release command release_commands don’t have access to volumes, since they’re ephermereal and 
+# can’t attach the same volume as the main machine, hence the following won't work.
+# [deploy]
+#   release_command = "python manage.py migrate --noinput"

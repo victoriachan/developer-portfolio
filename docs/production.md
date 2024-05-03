@@ -7,6 +7,13 @@ The production site is hosted on [Fly.io](https://fly.io/), a platform as a serv
 
 As we use SQlite database, we cannot host this on Heroku (see [why](https://devcenter.heroku.com/articles/sqlite3)). We don't want to use postgres as that will cost another $5/mth/app.
 
+### Useful fly commands
+
+To SSH
+
+```bash
+fly ssh console
+```
 
 ### Set up a new Fly.io app
 
@@ -18,7 +25,7 @@ You'll need to [install flyctl](https://fly.io/docs/hands-on/install-flyctl/), i
 - Set [environment variables](#environment-variables-required) as stated below.
 - Run `flyctl deploy`
 
-### Environment variables required
+#### Environment variables (aka Secrets) required
 
 - **`WAGTAIL_SITE_NAME`**: This is displayed on Wagtail CMS admin.
 - **`WAGTAILADMIN_BASE_URL`**: e.g. `http://example.com`
@@ -28,10 +35,10 @@ You'll need to [install flyctl](https://fly.io/docs/hands-on/install-flyctl/), i
 - **`SENTRY_DSN`**: For error monitoring. See https://docs.sentry.io/platforms/python/integrations/django/#configure
 - **`SENTRY_ENVIRONMENT`**: Optional. Can be set as 'production' or 'staging' to make it easier to filter errors on Sentry.
 
-#### Fly.io only
+##### Fly.io only
 
-- **`MEDIA_DIR`**: For Fly.io, this should be `/app/data/media`. 
-- **`SQLITE_FILEPATH`**: For Fly.io, this should be `/app/data/db.sqlite3`.
+- **`MEDIA_ROOT`**: For Fly.io, this should be `/data/media`. 
+- **`SQLITE_DATABASE_NAME`**: For Fly.io, this should be `/data/db.sqlite3`.
 
 
 ### References:
@@ -39,8 +46,6 @@ You'll need to [install flyctl](https://fly.io/docs/hands-on/install-flyctl/), i
 - https://usher.dev/posts/wagtail-on-flyio/part-1/
 - https://programmingmylife.com/2023-11-06-using-sqlite-for-a-django-application-on-flyio.html
 - https://community.fly.io/t/using-sqlite-from-persistent-volume-for-django-application/16206/5
-
-
 
 
 ## Sentry: Error Monitoring

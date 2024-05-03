@@ -11,12 +11,9 @@ RUN npm run build-prod
 # Use an official Python runtime based on Debian 12 "bookworm" as a parent image.
 FROM python:3.12-slim-bookworm as production
 
-# Install dependencies in a virtualenv
-ENV VIRTUAL_ENV=/venv
-
 # Add user that will be used in the container.
 # Use --create-home to create a home directory for the user, as we need it for nvm.
-RUN useradd wagtail --create-home && mkdir /app $VIRTUAL_ENV && chown -R wagtail /app $VIRTUAL_ENV
+RUN useradd wagtail --create-home
 
 # Port used by this container to serve HTTP.
 EXPOSE 8000
@@ -53,7 +50,6 @@ RUN chown wagtail:wagtail /app
 COPY --chown=wagtail:wagtail . .
 
 # Install the project requirements.
-RUN python -m venv $VIRTUAL_ENV
 RUN pip install --no-cache --upgrade pip \
     && pip install -r requirements.txt \
     && rm -rf $HOME/.cache
@@ -71,7 +67,9 @@ RUN python manage.py collectstatic --noinput --clear
 
 # Run the WSGI server. It reads GUNICORN_CMD_ARGS, PORT and WEB_CONCURRENCY
 # environment variable hence we don't specify a lot options below.
-CMD gunicorn portfolio.wsgi:application
+# Run migrate here as we have troubles doing it on fly.toml release stage.
+CMD set -xe; python manage.py migrate --noinput; gunicorn portfolio.wsgi:application
+
 
 # Local config for using npm in the container for local development.
 # To use, update target in docker-compose.yml to "dev"

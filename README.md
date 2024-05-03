@@ -55,11 +55,11 @@ You can then run the usual Wagtail commands:
 
 #### Database
 
-This site uses SQLite database. To backup / restore the database, simply copy and replace the `db.sqlite3` file. On local builds, this file is mounted as a bind mount, and will persist between docker builds unless explicitly deleted.
+This site uses SQLite database. To backup / restore the database, simply copy and replace the `data/db.sqlite3` file. On local builds, this file is mounted as a bind mount, and will persist between docker builds unless explicitly deleted.
 
 #### Media files (images and docs)
 
-Similarly, the `media` (Wagtail Image and Document files) directory is mounted as a bind mount, and will persist between docker builds unless explicitly deleted. Likewise, it can be backed up and restored by simply copying and replacing the directory.
+Similarly, the `data/media` (Wagtail Image and Document files) directory is mounted as a bind mount, and will persist between docker builds unless explicitly deleted. Likewise, it can be backed up and restored by simply copying and replacing the directory.
 
 
 ### To stop the container:

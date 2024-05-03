@@ -27,10 +27,9 @@ services:
       # - ./static_compiled:/app/static_compiled
 
       # Database and Media files:
-      # Mounting the db and '/media' directory makes it easier to backup and restore and 
-      # allows persistence when rebuilding the container.
-      - ./db.sqlite3:/app/db.sqlite3
-      - ./media:/app/media
+      # Mounting the '/data' directory makes it easier to backup and restore 
+      # database and media files and provides persistence when rebuilding the container.
+      - ./data:/app/data
 
       # Frontend config:
       - ./package-lock.json:/app/package-lock.json
