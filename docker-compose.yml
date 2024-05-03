@@ -10,6 +10,7 @@ services:
       DJANGO_SETTINGS_MODULE: portfolio.settings.dev
       WAGTAILADMIN_BASE_URL: http://localhost:8000
       SECRET_KEY: 'local-secret'
+      ALLOWED_HOSTS: localhost,127.0.0.1,0.0.0.0
     command: python manage.py runserver 0.0.0.0:8000
     image: portfolio
     ports:

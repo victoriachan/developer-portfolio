@@ -4,7 +4,7 @@ FROM node:20 as frontend
 
 COPY . .
 
-RUN npm ci --no-optional --no-audit --progress=false
+RUN npm ci --omit=optional --no-audit --progress=false
 RUN npm run build-prod
 
 
@@ -88,3 +88,6 @@ COPY --chown=wagtail --from=frontend ./node_modules ./node_modules
 COPY --chown=wagtail .nvmrc ./
 RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash && \
     bash --login -c "nvm install --no-progress && nvm alias default $(nvm run --silent --version)"
+
+# do nothing forever - exec commands elsewhere
+CMD tail -f /dev/null
