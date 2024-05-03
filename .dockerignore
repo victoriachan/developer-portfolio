@@ -1,6 +1,7 @@
 fly.toml
 
 # Django project
+/data/
 /media/
 /static_compiled/
 /static/

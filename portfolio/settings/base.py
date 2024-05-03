@@ -237,3 +237,6 @@ if "SENTRY_DSN" in env:
 
     sentry_kwargs.update({"release": release})
     sentry_sdk.init(**sentry_kwargs)
+
+if "CSRF_TRUSTED_ORIGINS" in env:
+    CSRF_TRUSTED_ORIGINS = env.get("CSRF_TRUSTED_ORIGINS", "").split(",")
