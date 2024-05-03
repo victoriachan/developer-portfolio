@@ -80,6 +80,8 @@ docker-compose logs -f
 
 ### Updating backend dependencies
 
+We use [pip-tools](https://pip-tools.readthedocs.io/en/latest/) to manage these.
+
 To update pip packages, edit `requirements.in`, and then run:
 
 ```bash

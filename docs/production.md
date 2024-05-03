@@ -2,11 +2,12 @@
 
 ## Environment variables required
 
-- **WAGTAIL_SITE_NAME**: e.g. `My Portfolio` - This is displayed on Wagtail CMS admin.
-- **WAGTAILADMIN_BASE_URL**: e.g. `http://example.com`
-- **ALLOWED_HOSTS**: Security measure to prevent HTTP Host header attacks. See [Django documentation](https://docs.djangoproject.com/en/5.0/ref/settings/#allowed-hosts)
-- **SECRET_KEY**: Django secret key. See [Django documentation](https://docs.djangoproject.com/en/5.0/ref/settings/#secret-key)
-
+- **`WAGTAIL_SITE_NAME`**: This is displayed on Wagtail CMS admin.
+- **`WAGTAILADMIN_BASE_URL`**: e.g. `http://example.com`
+- **`ALLOWED_HOSTS`**: Security measure to prevent HTTP Host header attacks. See [Django documentation](https://docs.djangoproject.com/en/5.0/ref/settings/#allowed-hosts)
+- **`SECRET_KEY`**: Django secret key. See [Django documentation](https://docs.djangoproject.com/en/5.0/ref/settings/#secret-key)
+- **`SENTRY_DSN`**: For error monitoring. See https://docs.sentry.io/platforms/python/integrations/django/#configure
+- **`SENTRY_ENVIRONMENT`**: Optional. Can be set as 'production' or 'staging' to make it easier to filter errors on Sentry.
 
 ## Production hosting
 
@@ -48,7 +49,16 @@ Visit the app at the URL shown in the deploy output. As a handy shortcut, you ca
 heroku open
 ```
 
+#### Recommended Heroku addons
+
+- Papertrail (free): For logging. Useful for debugging problems.
+- Heroku Scheduler (free): For cron tasks such as `python manage.py update_index`/
+
 Source: 
 
 - [Getting Started on Heroku with Python](https://devcenter.heroku.com/articles/getting-started-with-python#create-and-deploy-the-app)
 - [Building Docker Images with heroku.yml](https://devcenter.heroku.com/articles/build-docker-images-heroku-yml)
+
+## Sentry: Error Monitoring
+
+[Sentry.io](https://docs.sentry.io/) is used for error monitoring.

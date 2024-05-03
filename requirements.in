@@ -1,8 +1,23 @@
 Django>=5.0,<5.1
 wagtail>=6.0,<6.1
-pip-tools~=7.4.1
-#sentry-sdk~=2.0.1
 gunicorn~=22.0.0
+
+# For serving static files in production
 whitenoise~=6.6.0
+
+####################
+# Production
+
+# Sentry: for monitoring errors on production
+# https://sentry.io/
+sentry-sdk~=2.0.1
+
+####################
+# Development
+
+# For compiling requirements.in to requirements.txt
+pip-tools~=7.4.1
+
+# Linting
 black==24.4.2
 isort==5.13.2

@@ -200,3 +200,33 @@ if "ALLOWED_HOSTS" in env:
 WAGTAILIMAGES_IMAGE_MODEL = "base.CustomImage"
 
 WAGTAILDOCS_DOCUMENT_MODEL = "base.CustomDocument"
+
+# Sentry: for error monitoring.
+# See https://docs.sentry.io/platforms/python/integrations/django/
+# Will not run locally unless SENTRY_DSN is set in the environment.
+if "SENTRY_DSN" in env:
+
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+    from sentry_sdk.utils import get_default_release
+
+    sentry_kwargs = {
+        "dsn": env["SENTRY_DSN"],
+        "integrations": [DjangoIntegration()],
+    }
+
+    # There's a chooser to toggle between environments at the top right corner on sentry.io
+    # Values are typically 'staging' or 'production' but can be set to anything else if needed.
+    # `heroku config:set SENTRY_ENVIRONMENT=production`
+    if sentry_environment := env.get("SENTRY_ENVIRONMENT"):
+        sentry_kwargs.update({"environment": sentry_environment})
+
+    release = get_default_release()
+    if release is None:
+        # Assume this is a Heroku-hosted app with the "runtime-dyno-metadata" lab enabled.
+        # see https://devcenter.heroku.com/articles/dyno-metadata
+        # `heroku labs:enable runtime-dyno-metadata`
+        release = env.get("HEROKU_RELEASE_VERSION", None)
+
+    sentry_kwargs.update({"release": release})
+    sentry_sdk.init(**sentry_kwargs)
