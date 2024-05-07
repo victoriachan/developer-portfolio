@@ -24,8 +24,9 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
-    "portfolio.base",
     "portfolio.pages",
+    "portfolio.base",
+    "portfolio.images",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -199,14 +200,10 @@ WAGTAILADMIN_BASE_URL = env.get("WAGTAILADMIN_BASE_URL", "http://localhost:8000"
 if "ALLOWED_HOSTS" in env:
     ALLOWED_HOSTS = env["ALLOWED_HOSTS"].split(",")
 
-# Use custom wagtail models in case we ever need to override the defaults.
+# Use custom wagtail image model in case we ever need to override the defaults.
 # It is much easier to start with a custom model from the beginning
 # than to change later.
-
-
-WAGTAILIMAGES_IMAGE_MODEL = "base.CustomImage"
-
-WAGTAILDOCS_DOCUMENT_MODEL = "base.CustomDocument"
+WAGTAILIMAGES_IMAGE_MODEL = "images.CustomImage"
 
 # Sentry: for error monitoring.
 # See https://docs.sentry.io/platforms/python/integrations/django/

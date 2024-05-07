@@ -18,8 +18,9 @@ coverage
 .env
 local.py
 /backups
+/data
 .vscode
-*.sqlite3
+*.sqlite3*
 .fly-secrets
 
 # Distribution / packaging
