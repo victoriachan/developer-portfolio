@@ -24,3 +24,6 @@ black~=24.4.2
 isort~=5.13.2
 flake8~=7.0.0
 djhtml~=3.0.6
+
+# For Tests
+wagtail-factories~=4.1.0
