@@ -175,12 +175,14 @@ STORAGES = {
 # https://docs.djangoproject.com/en/stable/ref/settings/#debug
 DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 
-# Secret key should always be set in the environment variable and never added to the repository.
+# Secret key should always be set in the environment variable and
+# never added to the repository.
 SECRET_KEY = env.get("SECRET_KEY", "set-me-please")
 
 # Wagtail settings.
 
-# Shown on Wagtail admin. Can give different name on prod and staging to avoid confusion.
+# Shown on Wagtail admin. Can give different name on prod and staging
+# to avoid confusion.
 WAGTAIL_SITE_NAME = env.get("WAGTAIL_SITE_NAME", "Developer Portfolio")
 
 # Search
@@ -191,8 +193,9 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
-# Base URL to use when referring to full URLs within the Wagtail admin backend -
-# e.g. in notification emails. Don't include '/admin' or a trailing slash
+# Base URL to use when referring to full URLs within the Wagtail admin
+# backend - e.g. in notification emails. Don't include '/admin' or a
+# trailing slash
 WAGTAILADMIN_BASE_URL = env.get("WAGTAILADMIN_BASE_URL", "http://localhost:8000")
 
 # Define what hosts an app can be accessed by.

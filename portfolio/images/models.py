@@ -2,8 +2,9 @@ from django.db import models
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
 
 
-# We're not doing anything different with our custom image yet. But as it would be a
-# lot of trouble to introduce a custom image later, it is better to just start with one.
+# We're not doing anything different with our custom image yet. But as
+# it would be a lot of trouble to introduce a custom image later, it is
+# better to just start with one.
 class CustomImage(AbstractImage):
     admin_form_fields = Image.admin_form_fields
 

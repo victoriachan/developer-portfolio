@@ -18,6 +18,9 @@ sentry-sdk~=2.0.1
 # For compiling requirements.in to requirements.txt
 pip-tools~=7.4.1
 
-# Linting
-black==24.4.2
-isort==5.13.2
+# Linting / CI
+pre-commit~=3.7.0
+black~=24.4.2
+isort~=5.13.2
+flake8~=7.0.0
+djhtml~=3.0.6
