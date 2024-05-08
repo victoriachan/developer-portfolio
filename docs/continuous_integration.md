@@ -23,3 +23,5 @@ $ pre-commit run --all-files
 ## Automatic checks on Github
 
 When commits are pushed to Github, CI pipelines including tests, and linting checks are run.
+
+This is configured in `.github/workflows/ci.yml`.
