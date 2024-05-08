@@ -45,7 +45,7 @@ We should try to keep dependencies to minimal, and document justification for th
 
 - **webpack** (`webpack`, `webpack-cli`): For bundling, minification, etc.
 - **clean-webpack-plugin**: Clean up unused webpack assets on build.
-- **copy-webpack-plugin**: Used to sync images from static_src to static_compiled.
+- **copy-webpack-plugin**: Used to copy assets/images from static_src to static_compiled.
 - **css-loader**: Basic css support for Webpack.
 - **css-minimizer-webpack-plugin**: CSS minimizer.
 - **mini-css-extract-plugin**: Need this to extract/copy our .css from static_src to static_compiled.
