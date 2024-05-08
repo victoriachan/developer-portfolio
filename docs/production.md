@@ -30,16 +30,18 @@ You'll need to [install flyctl](https://fly.io/docs/hands-on/install-flyctl/), i
 - **`WAGTAIL_SITE_NAME`**: This is displayed on Wagtail CMS admin.
 - **`WAGTAILADMIN_BASE_URL`**: e.g. `http://example.com`
 - **`ALLOWED_HOSTS`**: Security measure to prevent HTTP Host header attacks. See [Django documentation](https://docs.djangoproject.com/en/5.0/ref/settings/#allowed-hosts)
+- **`CSRF_TRUSTED_ORIGINS`**: List of trusted origins for post requests. See [Django documentation](https://docs.djangoproject.com/en/5.0/ref/settings/#csrf-trusted-origins)
 - **`SECRET_KEY`**: Django secret key. See [Django documentation](https://docs.djangoproject.com/en/5.0/ref/settings/#secret-key). Generate by running `python -c "import secrets; print(secrets.token_urlsafe())"
 `
 - **`SENTRY_DSN`**: For error monitoring. See https://docs.sentry.io/platforms/python/integrations/django/#configure
 - **`SENTRY_ENVIRONMENT`**: Optional. Can be set as 'production' or 'staging' to make it easier to filter errors on Sentry.
-
-##### Fly.io only
-
 - **`MEDIA_ROOT`**: For Fly.io, this should be `/data/media`. 
 - **`SQLITE_DATABASE_NAME`**: For Fly.io, this should be `/data/db.sqlite3`.
+- **`FLY_API_TOKEN`**: For Fly.io deployment, see https://fly.io/docs/app-guides/continuous-deployment-with-github-actions/
 
+### Backup
+
+Fly.io takes daily block-level snapshots of volumes (i.e. the SQLite database). They keep snapshots for five days. See https://fly.io/docs/reference/volumes/#volume-snapshots
 
 ### References:
 
