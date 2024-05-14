@@ -1,8 +1,13 @@
-# 🚀 Victoria Chan's developer portfolio website
+# 🚀 Wagtail startup website
 
 This project has been created using the amazing [Wagtail CMS](https://github.com/wagtail/wagtail).
 
-This project is meant to be a minimalistic Wagtail site for showcasing a freelance developer's portfolio and details. I'm hoping to keep the dependencies light so that this website can be cheaply (if not freely) hosted using minimal resources.
+This project is meant to be a minimalistic Wagtail site demo, which can be referenced to build a more extensive Wagtail site. This differs from the `wagtail start mysite mysite` site as it contains some of the basics I find I almost always need, such as frontend tooling, CI, pre-commit linting, hosting configuration (e.g. Fly.io), etc.
+
+For this stack, I'm aiming to keep the dependencies light so that this website can be cheaply (if not freely) hosted using minimal resources.
+
+Also worth checking out the [Wagtail Bakery demo site](https://github.com/wagtail/bakerydemo) which uses a different stack. The main difference being that this uses SQLite instead of postgres.
+
 
 **Document contents**
 
@@ -22,8 +27,8 @@ We use [Docker](https://docs.docker.com/) to set up a local build for developmen
 ### To build the container:
 
 ```bash
-git clone https://github.com/victoriachan/developer-portfolio.git
-cd developer-portfolio
+git clone https://github.com/victoriachan/wagtail-startup-site.git
+cd wagtail-startup-site
 docker-compose build
 ```
 
@@ -93,4 +98,4 @@ pip install -r requirements.txt
 
 Frontend css and js src files are in `static_src/` directory, and are compiled into `static_compiled/`. By default if not changing any frontend files, the CSS and JS should already be compiled on a fresh docker build.
 
-For working with frontend files, see documentation about [Frontend tooling](https://github.com/victoriachan/developer-portfolio/blob/main/docs/frontend_tooling.md).
+For working with frontend files, see documentation about [Frontend tooling](https://github.com/victoriachan/wagtail-startup-site/blob/main/docs/frontend_tooling.md).
